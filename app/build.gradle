@@ -1,0 +1,83 @@
+// build.gradle (Module :app)
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+
+    // ⚠️ ELIMINADO: id 'androidx.navigation.safeargs.kotlin' (Va en el archivo raíz)
+
+    // 2. Plugin KAPT (Necesario para usar el procesador de anotaciones)
+    id 'kotlin-kapt'
+}
+    Q
+android {
+    // ⚠️ La configuración de ViewBinding DEBE ir dentro del bloque 'android'
+    buildFeatures {
+        viewBinding true
+    }
+    namespace 'com.example.comercioesq'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.example.comercioesq'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // Si estás usando Kotlin, esto también será necesario:
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // 3. DEFINIMOS LA VERSIÓN AQUÍ
+    def nav_version = "2.7.7"
+
+    // Dependencias básicas de Android
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // -------------------------------------------------------------
+    // Dependencias Solicitadas:
+    // -------------------------------------------------------------
+
+    // Dependencias de UI
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+
+    // Dependencias de MVVM (LiveData y ViewModel)
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+
+    // Dependencias de Navigation Component (Usando la variable 'nav_version')
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // 4. Procesador de Anotaciones de Safe Args (Clave para generar *Directions)
+    kapt "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
+    // Dependencia de Gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // -------------------------------------------------------------
+    // Pruebas
+    // -------------------------------------------------------------
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

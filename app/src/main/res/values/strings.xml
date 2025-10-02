@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ComercioESQ</string>
+    <string name="stock_id_format">Stock: %1$d | ID: %2$d</string>
+</resources>

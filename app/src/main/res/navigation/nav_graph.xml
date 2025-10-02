@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/productosFragment">
+
+    <fragment
+        android:id="@+id/productosFragment"
+        android:name="com.example.comercioesq.ui.fragments.ProductosFragment"
+        android:label="Productos"
+        tools:layout="@layout/fragment_productos">
+        <!--
+        CORRECCIÓN CLAVE: Al definir la acción, debemos indicarle que
+        el destino (productoFormFragment) usa argumentos.
+        Safe Args ahora puede ver qué argumentos debe incluir en la clase Directions.
+        -->
+        <action
+            android:id="@+id/action_productosFragment_to_productoFormFragment"
+            app:destination="@id/productoFormFragment">
+            <!--
+            AÑADIDO: Safe Args requiere que las acciones que llevan a un destino con argumentos
+            definan también el valor por defecto de esos argumentos en la acción misma.
+            Esto obliga al generador a crear la función con los parámetros correctos.
+            -->
+            <argument
+                android:name="productoId"
+                app:argType="long"
+                android:defaultValue="-1L" />
+            <argument
+                android:name="title"
+                app:argType="string"
+                android:defaultValue="Agregar Producto" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/clientesFragment"
+        android:name="com.example.comercioesq.ui.fragments.ClientesFragment"
+        android:label="Clientes"
+        tools:layout="@layout/fragment_clientes" />
+
+    <fragment
+        android:id="@+id/pedidosFragment"
+        android:name="com.example.comercioesq.ui.fragments.PedidosFragment"
+        android:label="Pedidos"
+        tools:layout="@layout/fragment_pedidos" />
+
+
+    <fragment
+        android:id="@+id/productoFormFragment"
+        android:name="com.example.comercioesq.ui.fragments.ProductoFormFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_producto_form">
+
+        <!-- Los argumentos en el destino están bien definidos. -->
+        <argument
+            android:name="productoId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Agregar Producto" />
+    </fragment>
+
+</navigation>
